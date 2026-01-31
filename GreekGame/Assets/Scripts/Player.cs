@@ -1,10 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
     // components on player
-    private Rigidbody2D rg; 
+    private Rigidbody2D rg;
+
+    // interactions 
+    [SerializeField]
+    private List<string> tags = new List<string>();
+    [SerializeField]
+    private string interactTag;
+    private GameObject interactObject = null;
 
     // movement
     [SerializeField]
@@ -12,7 +20,6 @@ public class Player : MonoBehaviour
     private Vector2 direction;
     private Vector2 velocity;
     private Vector2 position;
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,12 +42,49 @@ public class Player : MonoBehaviour
         // interact with item if something is within range
         if(context.performed)
         {
-            
+
+            if(interactTag == tags[0])
+            {
+                // call item script 
+                interactObject.GetComponent<Item>().PickUp();
+
+                // reset current interact info
+                interactObject = null;
+                interactTag = null;
+                Debug.Log("Item Pickuped up");
+            }
+            else if (interactTag == tags[1])
+            {
+                // call door script 
+
+                // reset current interact info
+                interactObject = null;
+                interactTag = null;
+                interactTag = null;
+            }
+            else if (interactTag == tags[2])
+            {
+                // call npc script 
+
+            }
         }
     }
 
     public void Move (InputAction.CallbackContext context) 
     {
         direction = context.ReadValue<Vector2>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // get reference to intertactable inrage
+        interactObject = collision.gameObject;
+        interactTag =  collision.gameObject.tag;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        interactObject = null;
+        interactTag = null;
     }
 }

@@ -1,10 +1,7 @@
 using UnityEngine;
 
-public class Pickup : MonoBehaviour
+public class Item : MonoBehaviour
 {
-    [SerializeField]
-    private bool canInteract = false;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,9 +14,8 @@ public class Pickup : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void PickUp()
     {
-        canInteract = true;
+        Destroy(this.gameObject);
     }
-
 }
