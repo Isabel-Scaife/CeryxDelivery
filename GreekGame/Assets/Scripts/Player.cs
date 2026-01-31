@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     public void Interact (InputAction.CallbackContext context)
     {
         // interact with item if something is within range
-        if(context.performed)
+        if(context.started)
         {
 
             if(interactTag == tags[0])
