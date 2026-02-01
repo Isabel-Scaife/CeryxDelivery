@@ -5,7 +5,13 @@ public class PackageManager : MonoBehaviour
 {
 
     [SerializeField]
-    GameObject currentTool;
+    private GameObject currentTool;
+
+    [SerializeField]
+    private GameObject mailObj;
+
+    public GameObject MailObj { get { return mailObj; } }
+
     public GameObject CurrentTool { get { return currentTool; } set { currentTool = value; } }
 
     public static PackageManager Instance { get; private set; }
@@ -20,17 +26,5 @@ public class PackageManager : MonoBehaviour
         {
             Instance = this;
         }
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -10,6 +9,44 @@ public class RayCasting : MonoBehaviour
     private List<LayerMask> interactableLayers;
 
     private bool mouseDown = false;
+
+    private void FixedUpdate()
+    {
+        // if mouse is held down track its position 
+        if (mouseDown)
+        {
+            // mouse hits colliders
+            Vector3 worldPos = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            RaycastHit2D hit;
+
+            // seal cut zone hit  
+            hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, interactableLayers[1], 0f, 0.5f);
+
+            if (hit.collider != null)
+            {
+                // check if holding tool
+                GameObject tool = PackageManager.Instance.CurrentTool;
+
+                if (tool != null)
+                {
+                    // use tool
+                    tool.GetComponent<Tool>().Use();
+                }
+            }
+        }
+        else
+        {
+            // check if holding tool
+            GameObject tool = PackageManager.Instance.CurrentTool;
+
+            if (tool != null)
+            {
+                // cancel using tool 
+                tool.GetComponent<Tool>().ResetUse();
+            }
+
+        }
+    }
 
 
     public void OnFire(InputAction.CallbackContext context)

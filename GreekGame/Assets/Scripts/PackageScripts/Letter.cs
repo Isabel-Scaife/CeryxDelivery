@@ -1,26 +1,47 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class Letter : MonoBehaviour
+
+public class Letter : Mail
 {
-    [SerializeField]
-    private float letterDragDistance = 2.5f;
 
     [SerializeField]
-    private float sealDragDistance = 2.5f;
+    private float letterDragDist = 80f;
+    private float currentDragDist = 0;
+    private bool dragging = false;
 
-    private bool isOpen = false;
+    /// <summary>
+    /// If drag distance met open letter, 
+    /// recieve letter inside 
+    /// </summary>
+    protected override void Open()
+    {
+        if (currentDragDist >= letterDragDist)
+        {
+            UpdateMailState();
+            currentDragDist = 0;
 
-    // method to open letter 
-    //      check if empty hand
-    //      check if clicked and dragged
-    //      track starting y postion, once a certain y distance is passed the letter opens
-    //      add click zone to letter, to start this method player must be within zone 
+            // give player mail inside 
+        }
+    }
 
-    // method to close letter
-    //      check if empty hand
-    //      check if clicked and dragged 
-    //      track starting y postion, once a certain y distance is passed the letter opens
-    //      add click zone to letter, to start this method player must be within zone 
+    /// <summary>
+    /// If drag distance met close letter
+    /// </summary>
+    protected override void Close()
+    {
+        if (currentDragDist <= (-1*letterDragDist))
+        {
+            UpdateMailState();
+            currentDragDist = 0;
+        }
+    }
+
+    private void UpdateDrag()
+    {
+        // if mouse clicked down track y 
+        currentDragDist += Mouse.current.delta.ReadValue().y;
+    }
 
     // method to remove seal, may be moved to knife use  
     //      check if holding knife
@@ -29,5 +50,8 @@ public class Letter : MonoBehaviour
 
     // method to add seal, may be moved to seal use  
     //      check if holding wax sealer
-    //      ckeck if clicked if right spot 
+    //      ckeck if clicked if right spot
+    //      
+
+    // look into trail render for slice 
 }

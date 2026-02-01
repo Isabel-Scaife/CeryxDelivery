@@ -1,5 +1,3 @@
-
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,14 +9,8 @@ public class Tool : MonoBehaviour
 
     private bool isFollowing = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if(isFollowing)
         {
@@ -30,6 +22,11 @@ public class Tool : MonoBehaviour
     /// Performs tools designate action when the user clicks
     /// </summary>
     public virtual void Use() { }
+
+    /// <summary>
+    /// Resets any trackers for using if action complete or cancellted 
+    /// </summary>
+    public virtual void ResetUse() { }
 
     /// <summary>
     /// Updates the current tool in package manager
