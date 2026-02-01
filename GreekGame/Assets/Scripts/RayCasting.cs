@@ -1,13 +1,13 @@
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class RayCasting : MonoBehaviour
 {
     [SerializeField]
     private List<LayerMask> interactableLayers;
-    
-    private Camera camera;
 
     private bool mouseDown = false;
 
@@ -19,22 +19,59 @@ public class RayCasting : MonoBehaviour
         {
             mouseDown = true;
 
-            // get hit information at mouse cursor 
-            Vector3 worldPos = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            RaycastHit2D hit;
-
-
-            // determine if tool was hit, in package scene
-            hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, interactableLayers[0]);
-
-            if(hit.collider != null)
+            string currentScene = SceneManager.GetActiveScene().name;
+            
+            // run package raycasting checks
+            if(currentScene == "Package")
             {
-                hit.collider.gameObject.GetComponent<Tool>().SelectTool();
+                PackageScenceClicks();
             }
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
             mouseDown = false;
+        }
+    }
+
+   
+    private void PackageScenceClicks()
+    {
+        // mouse his colliders
+        Vector3 worldPos = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        RaycastHit2D hit;
+
+        // nothing hit 
+        hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, -1, 1f);
+
+        // check if nothing was hit 
+        if (hit.collider == null)
+        {
+            // drop tool if holding something
+            GameObject tool = PackageManager.Instance.CurrentTool;
+
+            if (tool != null)
+            {
+                PackageManager.Instance.CurrentTool.GetComponent<Tool>().DropTool();
+            }
+
+            return;
+        }
+
+        // tool hit 
+        hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, interactableLayers[0], 1f);
+
+        if (hit.collider != null)
+        {
+            // select tool 
+            hit.collider.gameObject.GetComponent<Tool>().SelectTool();
+        }
+
+        // letter hit
+        hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, interactableLayers[1], 1f);
+
+        if (hit.collider != null)
+        {
+            // use current tool, if clicked in right area 
         }
     }
 

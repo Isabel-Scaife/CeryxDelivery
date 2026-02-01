@@ -1,4 +1,5 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,7 +22,6 @@ public class Tool : MonoBehaviour
     {
         if(isFollowing)
         {
-            Debug.Log("follow");
             Follow();
         }
     }
@@ -38,8 +38,29 @@ public class Tool : MonoBehaviour
     {
         Debug.Log("Pickuped Up tool");
         isFollowing = true;
-        Debug.Log(isFollowing);
+
+        // change objects depth to be on top 
+        Vector3 pos = transform.position;
+        pos.z = 0;
+        transform.position = pos;
+
         PackageManager.Instance.CurrentTool = this.gameObject;
+    }
+
+    /// <summary>
+    /// Updates the current tool in package manager
+    /// </summary>
+    public void DropTool()
+    {
+        Debug.Log("Dropped tool");
+        isFollowing = false;
+
+        // change objects depth to orginal value
+        Vector3 pos = transform.position;
+        pos.z = 1;
+        transform.position = pos;
+
+        PackageManager.Instance.CurrentTool = null;
     }
 
     /// <summary>
@@ -49,7 +70,6 @@ public class Tool : MonoBehaviour
     {
         mousePos = Mouse.current.position.ReadValue();
         Vector3 worldPos = (Vector2)Camera.main.ScreenToWorldPoint(mousePos);
-
         transform.position = worldPos;
     }
 }
