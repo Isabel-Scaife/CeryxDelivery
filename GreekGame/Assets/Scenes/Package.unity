@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 273950437}
   - component: {fileID: 273950436}
   - component: {fileID: 273950438}
+  - component: {fileID: 273950439}
   m_Layer: 7
   m_Name: Letter
   m_TagString: Untagged
@@ -255,6 +256,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.2, y: 1.36}
   m_EdgeRadius: 0
+--- !u!114 &273950439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273950435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 913273da94867054b9443683b0443a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mailInsidePrefab: {fileID: 0}
+  currentState: 0
+  letterDragDist: 80
 --- !u!1 &451753148
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,7 +628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTool: {fileID: 0}
-  packageObj: {fileID: 0}
+  mailObj: {fileID: 273950435}
 --- !u!1 &1470319925
 GameObject:
   m_ObjectHideFlags: 0
