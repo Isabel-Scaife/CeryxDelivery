@@ -616,18 +616,33 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 554987575}
-  - component: {fileID: 554987574}
-  - component: {fileID: 554987573}
-  - component: {fileID: 554987572}
+  - component: {fileID: 554987576}
+  - component: {fileID: 554987578}
+  - component: {fileID: 554987577}
   m_Layer: 0
-  m_Name: Confine Camera - Area in this Scene
+  m_Name: Camera Confiner - Area in this Scene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &554987572
-BoxCollider2D:
+--- !u!4 &554987575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554987571}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.89901185, y: -0.88794404, z: 0.06882332}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &554987576
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -656,11 +671,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 1
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.78492737, y: 0.8972893}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -670,9 +685,18 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 60.040108, y: 40.599815}
-  m_EdgeRadius: 0
---- !u!66 &554987573
+  m_Points:
+    m_Paths:
+    - - {x: 2.3869557, y: 63.780075}
+      - {x: -75.305374, y: 58.742554}
+      - {x: -107.006065, y: 12.261845}
+      - {x: -92.011604, y: -46.060837}
+      - {x: 0.7427623, y: -56.59416}
+      - {x: 70.38955, y: -49.413116}
+      - {x: 113.83029, y: 1.2133322}
+      - {x: 88.33593, y: 60.365265}
+  m_UseDelaunayMesh: 0
+--- !u!66 &554987577
 CompositeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -702,12 +726,12 @@ CompositeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 1
+  m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths: []
@@ -717,7 +741,7 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 554987571}
---- !u!50 &554987574
+--- !u!50 &554987578
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -744,21 +768,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!4 &554987575
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 554987571}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.89901185, y: -0.88794404, z: 0.06882332}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,12 +1188,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 929159757}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoundingShape2D: {fileID: 554987573}
+  BoundingShape2D: {fileID: 554987576}
   Damping: 0.8
   SlowingDistance: 5
   OversizeWindow:
