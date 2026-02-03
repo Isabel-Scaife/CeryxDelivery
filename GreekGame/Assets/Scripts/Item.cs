@@ -1,21 +1,12 @@
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item : Interactable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Interact(Player player)
     {
-        
-    }
+        if (!canInteract) return;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void PickUp()
-    {
+        // TODO: add item to inventory
         Destroy(this.gameObject);
     }
 }

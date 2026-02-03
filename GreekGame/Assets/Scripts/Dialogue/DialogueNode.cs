@@ -2,13 +2,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Single piece of dialogue along with whatever dialogue or choice comes next
+/// Single piece of dialogue or set of choices along with whatever comes next
 /// </summary>
 [System.Serializable]
 public class DialogueNode
 {
-    [TextArea(3, 6)] public string text;
     public string id;
     public string nextNodeID;
+
+    // either has text or choices, not both
+    [TextArea(3, 6)] public string text;
     public List<DialogueChoice> choices;
 }

@@ -5,5 +5,6 @@ using UnityEngine;
 /// </summary>
 public abstract class Interactable : MonoBehaviour
 {
+    protected bool canInteract;
     public abstract void Interact(Player player);
 }

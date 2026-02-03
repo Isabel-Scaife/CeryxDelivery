@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
 /// <summary>
 /// Shows dialogue in UI, manages dialgoue choices (branching logic), etc.
@@ -11,14 +12,23 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance;
 
     // fields
-    DialogueSO currentDialogue;
-    DialogueNode currentNode;
-    Dictionary<string, DialogueNode> nodes;
+    private DialogueSO currentDialogue;
+    private DialogueNode currentNode;
+    private Dictionary<string, DialogueNode> nodes;
+    private bool textIsScrolling;
+    private float scrollTimer;
+    private Queue<char> scrollTextRemaining;
+
+    [SerializeField]
+    private TextMeshPro dialogueBox;
 
     // functions
     private void Awake()
     {
         Instance = this;
+        textIsScrolling = false;
+        scrollTimer = 0.0f;
+        scrollTextRemaining = new Queue<char>();
     }
 
     /// <summary>
@@ -47,6 +57,52 @@ public class DialogueManager : MonoBehaviour
         // quits if there is nothing to display
         if (currentNode == null) return;
 
-        // shows the current node's text and/or choices
+        // shows the current node's text
+        if (currentNode.choices == null || currentNode.choices.Count < 1)
+        {
+            // starts showing text character by character
+            dialogueBox.text = "";
+            scrollTextRemaining.Clear();
+            int len = currentNode.text.Length;
+
+            // fills queue with characters that will be procedurally displayed
+            for (int i = len - 1; i >= 0; i--)
+            {
+                scrollTextRemaining.Enqueue(currentNode.text[i]);
+            }
+        }
+
+        // shoes the current node's choices
+        else
+        {
+            // show choices
+        }
+    }
+
+    private void Update()
+    {
+        // show text one character at a time
+        if (textIsScrolling)
+        {
+            // fills textbox when player clicks enter(?)
+            if (false)
+            {
+                textIsScrolling = false;
+                dialogueBox.text = currentNode.text;
+            }
+
+            // decrements timer until next character shows
+            else if (scrollTimer > 0)
+            {
+                scrollTimer -= Time.deltaTime;
+            }
+
+            // shows next character
+            else
+            {
+                scrollTimer = 1.0f;
+                dialogueBox.text += scrollTextRemaining.Dequeue();
+            }
+        }
     }
 }

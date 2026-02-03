@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
             if(interactTag == tags[0])
             {
                 // call item script 
-                interactObject.GetComponent<Item>().PickUp();
+                interactObject.GetComponent<Item>().Interact(this);
 
                 // reset current interact info
                 interactObject = null;
