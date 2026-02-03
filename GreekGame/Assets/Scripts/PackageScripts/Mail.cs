@@ -17,20 +17,21 @@ public class Mail : MonoBehaviour
     [SerializeField]
     protected MailState currentState = 0;
 
-    private void FixedUpdate()
-    {
-        // check if closed, set if it can be opened  
-        if(MailState.Closed == currentState)
-        {
-            Open();
-        }
 
-        // check if closed, set if it can be opened  
-        if (MailState.Opened == currentState)
-        {
-            Close();
-        }
-    }
+    //private void FixedUpdate()
+    //{
+    //    // check if closed, set if it can be opened  
+    //    if(MailState.Closed == currentState)
+    //    {
+    //        Open();
+    //    }
+
+    //    // check if closed, set if it can be opened  
+    //    if (MailState.Opened == currentState)
+    //    {
+    //        Close();
+    //    }
+    //}
 
     /// <summary>
     /// Updates state of the mail
@@ -63,6 +64,16 @@ public class Mail : MonoBehaviour
         // update state 
         currentState++;
     }
+
+    /// <summary>
+    /// Updates drag
+    /// </summary>
+    public virtual void Drag() { }
+
+    /// <summary>
+    /// Update drag to flase
+    /// </summary>
+    public virtual void StopDrag() { }
 
     /// <summary>
     /// Check if mail can be opened,

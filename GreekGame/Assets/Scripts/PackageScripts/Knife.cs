@@ -9,22 +9,20 @@ public class Knife : Tool
     private float currentDragDist = 0;
 
     private bool dragging = false;
+    private bool sealCut = false;
 
     // look into trail render for slice 
-
-    // method to remove seal, may be moved to knife use  
-    //      check if holding knife
-    //      check if clicked and dragged
-    //      similar to how open/closing letter works 
-
 
     protected override void Update()
     {
         // cuts selected object if clicking
         if (dragging)
         {
-            UpdateDrag();
-            CutSeal();
+            if(!sealCut)
+            {
+                UpdateDrag();
+                CutSeal();
+            }
         }
 
         base.Update();
@@ -61,6 +59,8 @@ public class Knife : Tool
             }
 
             ResetUse();
+
+            sealCut = true;
         }
     }
 

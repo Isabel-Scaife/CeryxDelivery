@@ -10,6 +10,26 @@ public class Letter : Mail
     private float currentDragDist = 0;
     private bool dragging = false;
 
+    protected void FixedUpdate()
+    {
+        // cuts selected object if clicking
+        if (dragging)
+        {
+            UpdateDrag();
+
+            // check if letter can be opened
+            if (currentState == MailState.Closed)
+            {
+                Open();
+            }
+            // check if letter can be closed
+            else if (currentState == MailState.Opened)
+            {
+                Close();
+            }
+        }
+    }
+
     /// <summary>
     /// If drag distance met open letter, 
     /// recieve letter inside 
@@ -18,10 +38,18 @@ public class Letter : Mail
     {
         if (currentDragDist >= letterDragDist)
         {
+            // close letter
+            Debug.Log("Opened letter");
+
+            // update state
             UpdateMailState();
+
+            // update visuals of letter
+
             currentDragDist = 0;
 
-            // give player mail inside 
+            // get mail from letter
+
         }
     }
 
@@ -30,9 +58,16 @@ public class Letter : Mail
     /// </summary>
     protected override void Close()
     {
-        if (currentDragDist <= (-1*letterDragDist))
+        if (currentDragDist <=(-1*letterDragDist))
         {
+            // close letter
+            Debug.Log("Closed letter");
+
+            // update state
             UpdateMailState();
+
+            // update visuals of letter
+
             currentDragDist = 0;
         }
     }
@@ -43,10 +78,16 @@ public class Letter : Mail
         currentDragDist += Mouse.current.delta.ReadValue().y;
     }
 
-    // method to remove seal, may be moved to knife use  
-    //      check if holding knife
-    //      check if clicked and dragged
-    //      similar to how open/closing letter works 
+    public override void Drag()
+    {
+        dragging = true;
+    }  
+
+    public override void StopDrag()
+    {
+        dragging = false;
+    }
+
 
     // method to add seal, may be moved to seal use  
     //      check if holding wax sealer

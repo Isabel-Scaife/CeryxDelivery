@@ -270,7 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mailInsidePrefab: {fileID: 0}
   currentState: 0
-  letterDragDist: 80
+  letterDragDist: 60
 --- !u!1 &451753148
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,6 +640,7 @@ GameObject:
   - component: {fileID: 1470319926}
   - component: {fileID: 1470319928}
   - component: {fileID: 1470319927}
+  - component: {fileID: 1470319929}
   m_Layer: 7
   m_Name: Letter Flap
   m_TagString: Untagged
@@ -767,6 +768,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1470319929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470319925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 913273da94867054b9443683b0443a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mailInsidePrefab: {fileID: 0}
+  currentState: 0
+  letterDragDist: 60
 --- !u!1 &1523024975
 GameObject:
   m_ObjectHideFlags: 0

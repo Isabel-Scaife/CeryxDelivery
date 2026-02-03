@@ -19,18 +19,32 @@ public class RayCasting : MonoBehaviour
             Vector3 worldPos = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             RaycastHit2D hit;
 
-            // seal cut zone hit  
-            hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, interactableLayers[1], 0f, 0.5f);
+            // get tool player is holding
+            GameObject tool = PackageManager.Instance.CurrentTool;
 
-            if (hit.collider != null)
+            // check if holding knife
+            if (tool != null)
             {
-                // check if holding tool
-                GameObject tool = PackageManager.Instance.CurrentTool;
+                // seal cut zone hit  
+                hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, interactableLayers[1], 0f, 0.5f);
 
-                if (tool != null)
+                if (hit.collider != null)
                 {
                     // use tool
                     tool.GetComponent<Tool>().Use();
+                }
+            }
+
+            // check if holding nothing 
+            if(tool == null)
+            {
+                // check if close/open hitbox hit 
+                hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, interactableLayers[1], .6f, 1f);
+
+                if (hit.collider != null)
+                {
+                    // updated drag info
+                    PackageManager.Instance.MailObj.GetComponent<Mail>().Drag();
                 }
             }
         }
@@ -43,6 +57,9 @@ public class RayCasting : MonoBehaviour
             {
                 // cancel using tool 
                 tool.GetComponent<Tool>().ResetUse();
+
+                // cancel opening mail
+                PackageManager.Instance.MailObj.GetComponent<Mail>().StopDrag();
             }
 
         }
