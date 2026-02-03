@@ -20,7 +20,7 @@ public class DialogueManager : MonoBehaviour
     private Queue<char> scrollTextRemaining;
 
     [SerializeField]
-    private TextMeshPro dialogueBox;
+    private TextMeshProUGUI dialogueBox;
 
     // functions
     private void Awake()
@@ -36,14 +36,14 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     /// <param name="dialogue">all dialogue info for the interaction that should play</param>
     public void BeginDialogue(DialogueSO dialogue)
-    {
+    {      
         // quits if no dialogue was given
         if (dialogue == null) return;
         
         // gets all dialogue for the interaction
         currentDialogue = dialogue;
         nodes = dialogue.nodes.ToDictionary(n => n.id);
-        currentNode = nodes[dialogue.startingNodeID];
+        currentNode = nodes[currentDialogue.startingNodeID];
 
         // displays dialogue in UI
         DisplayDialogue();
@@ -53,7 +53,7 @@ public class DialogueManager : MonoBehaviour
     /// Displays dialogue text and/or choices to the player
     /// </summary>
     private void DisplayDialogue()
-    {
+    {       
         // quits if there is nothing to display
         if (currentNode == null) return;
 
@@ -66,10 +66,11 @@ public class DialogueManager : MonoBehaviour
             int len = currentNode.text.Length;
 
             // fills queue with characters that will be procedurally displayed
-            for (int i = len - 1; i >= 0; i--)
+            for (int i = 0; i < len; i++)
             {
                 scrollTextRemaining.Enqueue(currentNode.text[i]);
             }
+            textIsScrolling = true;
         }
 
         // shoes the current node's choices
@@ -83,7 +84,7 @@ public class DialogueManager : MonoBehaviour
     {
         // show text one character at a time
         if (textIsScrolling)
-        {
+        {           
             // fills textbox when player clicks enter(?)
             if (false)
             {
@@ -100,8 +101,12 @@ public class DialogueManager : MonoBehaviour
             // shows next character
             else
             {
-                scrollTimer = 1.0f;
+                scrollTimer = 0.05f;
                 dialogueBox.text += scrollTextRemaining.Dequeue();
+                if (scrollTextRemaining.Count < 1)
+                {
+                    textIsScrolling = false;
+                }
             }
         }
     }

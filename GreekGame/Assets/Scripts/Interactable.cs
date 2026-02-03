@@ -1,10 +1,11 @@
 using UnityEngine;
 
 /// <summary>
-/// Anything the player can interact with in the overworld
+/// Anything or anyone the player can interact with in the overworld
 /// </summary>
 public abstract class Interactable : MonoBehaviour
 {
+    [SerializeField]
     protected bool canInteract;
     public abstract void Interact(Player player);
 }

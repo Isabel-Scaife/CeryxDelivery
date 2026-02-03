@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
             if(interactTag == tags[0])
             {
                 // call item script 
-                interactObject.GetComponent<Item>().Interact(this);
+                interactObject.GetComponent<Interactable>().Interact(this);
 
                 // reset current interact info
                 interactObject = null;
@@ -64,8 +64,13 @@ public class Player : MonoBehaviour
             }
             else if (interactTag == tags[2])
             {
-                // call npc script 
+                // call interact on the NPC
+                interactObject.GetComponent<Interactable>().Interact(this);
 
+                // reset current interact info
+                interactObject = null;
+                interactTag = null;
+                Debug.Log("NPC talked to");
             }
         }
     }

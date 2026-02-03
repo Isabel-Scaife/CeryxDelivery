@@ -26,6 +26,7 @@ public class NPC : Interactable
         if (!canInteract) return;
 
         // shows dialogue
+        canInteract = false;
         if (dialogues != null && dialogues.Count > 0)
         {
             DialogueManager.Instance.BeginDialogue(dialogues[0]);
