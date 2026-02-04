@@ -21,7 +21,9 @@ public class DialogueManager : MonoBehaviour
     private bool wantsToAdvance;
 
     [SerializeField]
-    private TextMeshProUGUI dialogueBox;
+    private TextMeshProUGUI dialogueTMP;
+    [SerializeField]
+    private GameObject dialogueBox;
 
     public bool DialogueIsHappening { get; private set; }
 
@@ -46,7 +48,7 @@ public class DialogueManager : MonoBehaviour
             {
                 wantsToAdvance = false;
                 textIsScrolling = false;
-                dialogueBox.text = currentNode.text;
+                dialogueTMP.text = currentNode.text;
             }
 
             // decrements timer until next character shows
@@ -59,11 +61,27 @@ public class DialogueManager : MonoBehaviour
             else
             {
                 scrollTimer = 0.05f;
-                dialogueBox.text += scrollTextRemaining.Dequeue();
+                dialogueTMP.text += scrollTextRemaining.Dequeue();
                 if (scrollTextRemaining.Count < 1)
                 {
                     textIsScrolling = false;
                 }
+            }
+        }
+
+        // advances to next node, or quits if dialogue is over, when player advances
+        else if (DialogueIsHappening && wantsToAdvance)
+        {
+            if (currentNode.isEndpoint)
+            {
+                DialogueIsHappening = false;
+                dialogueBox.SetActive(false);
+                dialogueTMP.text = "";
+            }
+            else
+            {
+                // advance to next piece of dialogue
+                //currentNode = nodes[currentNode.nextNodeID];
             }
         }
     }
@@ -83,6 +101,7 @@ public class DialogueManager : MonoBehaviour
         currentNode = nodes[currentDialogue.startingNodeID];
 
         // displays dialogue in UI
+        dialogueBox.SetActive(true);
         DisplayDialogue();
         DialogueIsHappening = true;
     }
@@ -107,7 +126,7 @@ public class DialogueManager : MonoBehaviour
         if (currentNode.choices == null || currentNode.choices.Count < 1)
         {
             // starts showing text character by character
-            dialogueBox.text = "";
+            dialogueTMP.text = "";
             scrollTextRemaining.Clear();
             int len = currentNode.text.Length;
 

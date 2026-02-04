@@ -7,6 +7,7 @@ using UnityEngine;
 [System.Serializable]
 public class DialogueNode
 {
+    public bool isEndpoint;
     public string id;
     public string nextNodeID;
 

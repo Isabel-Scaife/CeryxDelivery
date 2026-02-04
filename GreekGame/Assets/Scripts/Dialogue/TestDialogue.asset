@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingNodeID: test1
   nodes:
-  - id: test1
+  - isEndpoint: 1
+    id: test1
     nextNodeID: 
     text: '"This is dialogue for testing purposes, coming from me, the test NPC."'
     choices: []
