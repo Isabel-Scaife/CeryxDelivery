@@ -18,17 +18,54 @@ public class DialogueManager : MonoBehaviour
     private bool textIsScrolling;
     private float scrollTimer;
     private Queue<char> scrollTextRemaining;
+    private bool wantsToAdvance;
 
     [SerializeField]
     private TextMeshProUGUI dialogueBox;
+
+    public bool DialogueIsHappening { get; private set; }
 
     // functions
     private void Awake()
     {
         Instance = this;
         textIsScrolling = false;
+        wantsToAdvance = false;
+        DialogueIsHappening = false;
         scrollTimer = 0.0f;
         scrollTextRemaining = new Queue<char>();
+    }
+
+    private void Update()
+    {
+        // show text one character at a time
+        if (textIsScrolling)
+        {
+            // fills textbox when player chooses to advance
+            if (wantsToAdvance)
+            {
+                wantsToAdvance = false;
+                textIsScrolling = false;
+                dialogueBox.text = currentNode.text;
+            }
+
+            // decrements timer until next character shows
+            else if (scrollTimer > 0)
+            {
+                scrollTimer -= Time.deltaTime;
+            }
+
+            // shows next character
+            else
+            {
+                scrollTimer = 0.05f;
+                dialogueBox.text += scrollTextRemaining.Dequeue();
+                if (scrollTextRemaining.Count < 1)
+                {
+                    textIsScrolling = false;
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -47,6 +84,15 @@ public class DialogueManager : MonoBehaviour
 
         // displays dialogue in UI
         DisplayDialogue();
+        DialogueIsHappening = true;
+    }
+
+    /// <summary>
+    /// Advances dialogue upon player input
+    /// </summary>
+    public void Advance()
+    {
+        wantsToAdvance = true;
     }
 
     /// <summary>
@@ -77,37 +123,6 @@ public class DialogueManager : MonoBehaviour
         else
         {
             // show choices
-        }
-    }
-
-    private void Update()
-    {
-        // show text one character at a time
-        if (textIsScrolling)
-        {           
-            // fills textbox when player clicks enter(?)
-            if (false)
-            {
-                textIsScrolling = false;
-                dialogueBox.text = currentNode.text;
-            }
-
-            // decrements timer until next character shows
-            else if (scrollTimer > 0)
-            {
-                scrollTimer -= Time.deltaTime;
-            }
-
-            // shows next character
-            else
-            {
-                scrollTimer = 0.05f;
-                dialogueBox.text += scrollTextRemaining.Dequeue();
-                if (scrollTextRemaining.Count < 1)
-                {
-                    textIsScrolling = false;
-                }
-            }
         }
     }
 }

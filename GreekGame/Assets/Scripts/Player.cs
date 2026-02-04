@@ -42,8 +42,14 @@ public class Player : MonoBehaviour
         // interact with item if something is within range
         if(context.started)
         {
+            // advances dialogue if any is open
+            if (DialogueManager.Instance.DialogueIsHappening)
+            {
+                DialogueManager.Instance.Advance();
+            }
 
-            if(interactTag == tags[0])
+            // tag logic can be removed
+            else if(interactTag == tags[0])
             {
                 // call item script 
                 interactObject.GetComponent<Interactable>().Interact(this);
