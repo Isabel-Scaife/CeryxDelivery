@@ -24,6 +24,8 @@ public class DialogueManager : MonoBehaviour
     private TextMeshProUGUI dialogueTMP;
     [SerializeField]
     private GameObject dialogueBox;
+    [SerializeField]
+    private float textDelay;    // seconds before showing the next char
 
     public bool DialogueIsHappening { get; private set; }
 
@@ -60,7 +62,7 @@ public class DialogueManager : MonoBehaviour
             // shows next character
             else
             {
-                scrollTimer = 0.05f;
+                scrollTimer = textDelay;
                 dialogueTMP.text += scrollTextRemaining.Dequeue();
                 if (scrollTextRemaining.Count < 1)
                 {
