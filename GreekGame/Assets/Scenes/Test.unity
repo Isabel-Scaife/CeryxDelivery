@@ -1905,7 +1905,7 @@ GameObject:
   - component: {fileID: 1680889300}
   - component: {fileID: 1680889299}
   m_Layer: 0
-  m_Name: TextNPC
+  m_Name: TestNPC
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2557,11 +2557,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6863623e9436c4e45ba4f0a7b2c07769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tags:
-  - Item
-  - Door
-  - NPC
-  interactTag: 
   speed: 3.2
 --- !u!50 &2110783449
 Rigidbody2D:

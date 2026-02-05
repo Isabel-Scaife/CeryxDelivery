@@ -5,14 +5,10 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     // components on player
-    private Rigidbody2D rg;
+    private Rigidbody2D rb;
 
     // interactions 
-    [SerializeField]
-    private List<string> tags = new List<string>();
-    [SerializeField]
-    private string interactTag;
-    private GameObject interactObject = null;
+    private Interactable interactObject;
 
     // movement
     [SerializeField]
@@ -21,19 +17,18 @@ public class Player : MonoBehaviour
     private Vector2 velocity;
     private Vector2 position;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        rg = GetComponent<Rigidbody2D>();
+        // gets components
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    
     void FixedUpdate()
     {
         // update player's position
         velocity = direction * speed;
         position = (Vector2)transform.position + velocity * Time.fixedDeltaTime;
-        rg.MovePosition(position);
+        rb.MovePosition(position);
 
     }
 
@@ -48,35 +43,14 @@ public class Player : MonoBehaviour
                 DialogueManager.Instance.Advance();
             }
 
-            // tag logic can be removed
-            else if(interactTag == tags[0])
+            // interacts with current interactable
+            else if(interactObject != null)
             {
-                // call item script 
-                interactObject.GetComponent<Interactable>().Interact(this);
+                interactObject.Interact(this);
 
                 // reset current interact info
                 interactObject = null;
-                interactTag = null;
-                Debug.Log("Item Pickuped up");
-            }
-            else if (interactTag == tags[1])
-            {
-                // call door script 
-
-                // reset current interact info
-                interactObject = null;
-                interactTag = null;
-                interactTag = null;
-            }
-            else if (interactTag == tags[2])
-            {
-                // call interact on the NPC
-                interactObject.GetComponent<Interactable>().Interact(this);
-
-                // reset current interact info
-                interactObject = null;
-                interactTag = null;
-                Debug.Log("NPC talked to");
+                Debug.Log("Interaction Occurred");
             }
         }
     }
@@ -88,14 +62,12 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // get reference to intertactable inrage
-        interactObject = collision.gameObject;
-        interactTag =  collision.gameObject.tag;
+        // get reference to intertactable in rage
+        interactObject = collision.gameObject.GetComponent<Interactable>();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         interactObject = null;
-        interactTag = null;
     }
 }
