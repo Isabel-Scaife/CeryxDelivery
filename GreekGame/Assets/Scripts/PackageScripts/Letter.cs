@@ -4,11 +4,16 @@ using UnityEngine.InputSystem;
 
 public class Letter : Mail
 {
-
     [SerializeField]
     private float letterDragDist = 80f;
+    [SerializeField]
     private float currentDragDist = 0;
     private bool dragging = false;
+
+    [SerializeField]
+    private GameObject closedFlap;
+    [SerializeField]
+    private GameObject openFlap;
 
     protected void FixedUpdate()
     {
@@ -18,7 +23,7 @@ public class Letter : Mail
             UpdateDrag();
 
             // check if letter can be opened
-            if (currentState == MailState.Closed)
+            if (currentState == MailState.Unsealed)
             {
                 Open();
             }
@@ -48,6 +53,10 @@ public class Letter : Mail
 
             currentDragDist = 0;
 
+            // open flap 
+            openFlap.SetActive(true);
+            closedFlap.SetActive(false);
+
             // get mail from letter
 
         }
@@ -66,7 +75,10 @@ public class Letter : Mail
             // update state
             UpdateMailState();
 
-            // update visuals of letter
+            
+            // close flap
+            openFlap.SetActive(false);
+            closedFlap.SetActive(true);
 
             currentDragDist = 0;
         }
@@ -86,6 +98,7 @@ public class Letter : Mail
     public override void StopDrag()
     {
         dragging = false;
+        currentDragDist = 0;
     }
 
 

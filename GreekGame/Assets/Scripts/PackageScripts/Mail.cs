@@ -4,8 +4,8 @@ public enum MailState
 {
     Sealed,
     Unsealed,
-    Closed,
     Opened,
+    Closed,
     Resealed,
     Finished
 }
@@ -17,24 +17,9 @@ public class Mail : MonoBehaviour
     [SerializeField]
     protected MailState currentState = 0;
 
-
-    //private void FixedUpdate()
-    //{
-    //    // check if closed, set if it can be opened  
-    //    if(MailState.Closed == currentState)
-    //    {
-    //        Open();
-    //    }
-
-    //    // check if closed, set if it can be opened  
-    //    if (MailState.Opened == currentState)
-    //    {
-    //        Close();
-    //    }
-    //}
-
     /// <summary>
-    /// Updates state of the mail
+    /// Updates state of the mail, and 
+    /// runs code for state change if needed
     /// </summary>
     public void UpdateMailState()
     {
@@ -44,8 +29,8 @@ public class Mail : MonoBehaviour
         switch (currentState)
         {
             case MailState.Unsealed: RemoveSeal(); break;
-            case MailState.Closed: Open(); break;
-            case MailState.Opened: Close(); break;
+            //case MailState.Opened: Open(); break;
+            //case MailState.Opened: Close(); break;
             case MailState.Resealed: break;
             case MailState.Finished: break;
             default: break;
@@ -60,9 +45,6 @@ public class Mail : MonoBehaviour
     {
         // add rb to seal 
         GameObject.FindGameObjectWithTag("Seal").AddComponent<Rigidbody2D>();
-
-        // update state 
-        currentState++;
     }
 
     /// <summary>

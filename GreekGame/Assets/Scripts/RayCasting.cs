@@ -62,6 +62,13 @@ public class RayCasting : MonoBehaviour
                 PackageManager.Instance.MailObj.GetComponent<Mail>().StopDrag();
             }
 
+            // check if holding nothing 
+            if (tool == null)
+            {
+                // updated drag info
+                PackageManager.Instance.MailObj.GetComponent<Mail>().StopDrag();
+            }
+
         }
     }
 
