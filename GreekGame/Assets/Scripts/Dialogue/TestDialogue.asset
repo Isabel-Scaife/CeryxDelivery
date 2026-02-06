@@ -17,8 +17,5 @@ MonoBehaviour:
   - isEndpoint: 1
     id: test1
     nextNodeID: 
-    text: '"This is dialogue for testing purposes, coming from me, the test NPC.
-      Words words words words we need more words here for length kfhreufhkjdnfvkhreof
-      woreueofd soeruoeifjdojr souendkfnjvuhyr xoiwjheoirnoi aeurh oreioer odere
-      rieiouroe r r eoiruw"'
+    text: 'Here is a letter, please delivery it for me. No peeking. '
     choices: []
