@@ -7,5 +7,5 @@ public abstract class Interactable : MonoBehaviour
 {
     [SerializeField]
     protected bool canInteract;
-    public abstract void Interact(Player player);
+    public abstract void Interact(PlayerControlled player);
 }
