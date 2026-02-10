@@ -17,6 +17,12 @@ public class PlayerControlled : MonoBehaviour
     private Vector2 velocity;
     private Vector2 position;
 
+    // switching controllable object
+    [SerializeField]
+    private PlayerInput playerInput;
+    [SerializeField]
+    private PlayerInput birdInput;
+
     private void Awake()
     {
         // gets components
@@ -46,6 +52,22 @@ public class PlayerControlled : MonoBehaviour
                 interactObject = null;
                 Debug.Log("Interaction Occurred");
             }
+        }
+    }
+
+    public void SwapControlledObject()
+    {
+        // turn bird controls on 
+        if(playerInput.inputIsActive)
+        {
+            playerInput.enabled = false;
+            birdInput.enabled = true;
+        }
+        // turn player contorls on
+        else
+        {
+            playerInput.enabled = true;
+            birdInput.enabled = false;
         }
     }
 
