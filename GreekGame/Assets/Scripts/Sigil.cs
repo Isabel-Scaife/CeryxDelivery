@@ -2,8 +2,20 @@ using UnityEngine;
 
 public class Sigil : Interactable
 {
-    public override void Interact(Player player)
+    // Fields
+    [SerializeField]
+    private Sprite sprOn;
+    [SerializeField]
+    private Sprite sprOff;
+    [SerializeField]
+    private SpriteRenderer sprRenderer;
+    [SerializeField]
+    private bool isOn;
+
+    public override void Interact(PlayerControlled player)
     {
-        throw new System.NotImplementedException();
+        if (isOn) sprRenderer.sprite = sprOff;
+        else sprRenderer.sprite = sprOn;
+        isOn = !isOn;
     }
 }

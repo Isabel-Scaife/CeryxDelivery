@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Item : Interactable
 {
-    public override void Interact(Player player)
+    public override void Interact(PlayerControlled player)
     {
         if (!canInteract) return;
 
