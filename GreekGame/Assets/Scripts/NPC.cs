@@ -18,7 +18,7 @@ public class NPC : Interactable
     /// Shows dialogue
     /// </summary>
     /// <param name="player">player interacting with this NPC</param>
-    public override void Interact(Player player)
+    public override void Interact(PlayerControlled player)
     {
         // can be overridden if states determine which dialogue should play
 

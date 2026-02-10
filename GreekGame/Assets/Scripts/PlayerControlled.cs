@@ -3,19 +3,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerControlled : MonoBehaviour
 {
-
     // components
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
 
     // interactions 
-    private Interactable interactObject;
+    protected Interactable interactObject;
 
     // movement
     [SerializeField]
-    private float speed;
-    private Vector2 direction;
-    private Vector2 velocity;
-    private Vector2 position;
+    protected float speed;
+    protected Vector2 direction;
+    protected Vector2 velocity;
+    protected Vector2 position;
 
     // switching controllable object
     [SerializeField]
