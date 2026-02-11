@@ -9,14 +9,8 @@ public class Player : PlayerControlled
         // interact with item if something is within range
         if(context.started)
         {
-            // advances dialogue if any is open
-            if (DialogueManager.Instance.DialogueIsHappening)
-            {
-                DialogueManager.Instance.Advance();
-            }
-
             // interacts with current interactable
-            else if(interactObject != null)
+            if(interactObject != null)
             {
                 interactObject.Interact(this);
 
