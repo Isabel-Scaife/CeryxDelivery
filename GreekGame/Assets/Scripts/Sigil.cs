@@ -1,8 +1,11 @@
 using UnityEngine;
 
+/// <summary>
+/// Switch that can be turned on or off when interacted with and checked by other scripts
+/// </summary>
 public class Sigil : Interactable
 {
-    // Fields
+    // fields
     [SerializeField]
     private Sprite sprOn;
     [SerializeField]
@@ -11,6 +14,19 @@ public class Sigil : Interactable
     private SpriteRenderer sprRenderer;
     [SerializeField]
     private bool isOn;
+
+    // properties
+    public bool IsOn
+    {
+        get { return isOn; }
+    }
+
+    // functions
+    private void Start()
+    {
+        if (isOn) sprRenderer.sprite = sprOn;
+        else sprRenderer.sprite = sprOff;
+    }
 
     public override void Interact(PlayerControlled player)
     {
