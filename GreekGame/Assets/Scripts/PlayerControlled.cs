@@ -65,8 +65,8 @@ public class PlayerControlled : MonoBehaviour
         // turn player contorls on
         else
         {
-            playerInput.enabled = true;
             birdInput.enabled = false;
+            playerInput.enabled = true;
         }
     }
 
