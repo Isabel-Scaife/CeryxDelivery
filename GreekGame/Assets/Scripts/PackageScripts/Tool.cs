@@ -4,10 +4,13 @@ using UnityEngine.InputSystem;
 public class Tool : MonoBehaviour
 {
 
-    [SerializeField]
     private Vector2 mousePos;
-
+    protected Vector2 worldPos;
+    [SerializeField]
+    protected bool mouseDown = false;
     private bool isFollowing = false;
+
+    protected RaycastHit2D hit;
 
     // Update is called once per frame
     protected virtual void Update()
@@ -17,6 +20,12 @@ public class Tool : MonoBehaviour
             Follow();
         }
     }
+
+    /// <summary>
+    /// Tools specific raycast check
+    /// used to call actions methods 
+    /// </summary>
+    public virtual void RayCast() { }
 
     /// <summary>
     /// Performs tools designate action when the user clicks
@@ -41,7 +50,7 @@ public class Tool : MonoBehaviour
         pos.z = 0;
         transform.position = pos;
 
-        PackageManager.Instance.CurrentTool = this.gameObject;
+        PackageManager.Instance.CurrentTool = this;
     }
 
     /// <summary>

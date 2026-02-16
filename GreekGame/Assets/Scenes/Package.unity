@@ -361,8 +361,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mailInsidePrefab: {fileID: 0}
   currentState: 0
-  letterDragDist: 60
   currentDragDist: 0
+  letterDragDist: 100
   closedFlap: {fileID: 1470319925}
   openFlap: {fileID: 422980041}
 --- !u!1 &422980041
@@ -621,7 +621,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.45}
+  m_Offset: {x: 0, y: 0.38}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -631,7 +631,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.4, y: 0.73}
+  m_Size: {x: 1.76, y: 0.86}
   m_EdgeRadius: 0
 --- !u!1 &807142610
 GameObject:
@@ -735,7 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6436706165b02d94d98ad2b755c50a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mousePos: {x: 0, y: 0}
+  mouseDown: 0
   sealDragDist: -60
   currentDragDist: 0
 --- !u!61 &807142614
@@ -856,6 +856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTool: {fileID: 0}
+  toolType: 0
   mailObj: {fileID: 273950435}
 --- !u!1 &1237342128
 GameObject:

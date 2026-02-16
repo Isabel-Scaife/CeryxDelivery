@@ -17,6 +17,20 @@ public class Mail : MonoBehaviour
     [SerializeField]
     protected MailState currentState = 0;
 
+    [SerializeField]
+    protected float currentDragDist = 0;
+
+    protected bool dragging;
+    public bool Dragging
+    {
+        get => dragging;
+        set
+        {
+            dragging = value;
+            currentDragDist = 0;
+        }
+    }
+
     /// <summary>
     /// Updates state of the mail, and 
     /// runs code for state change if needed
@@ -48,16 +62,6 @@ public class Mail : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates drag
-    /// </summary>
-    public virtual void Drag() { }
-
-    /// <summary>
-    /// Update drag to flase
-    /// </summary>
-    public virtual void StopDrag() { }
-
-    /// <summary>
     /// Check if mail can be opened,
     /// recieve item inside mail if opened
     /// </summary>
@@ -67,5 +71,7 @@ public class Mail : MonoBehaviour
     /// Check if mail can be closed 
     /// </summary>
     protected virtual void Close() { }
+
+    public virtual void Raycast() {}
 }
 

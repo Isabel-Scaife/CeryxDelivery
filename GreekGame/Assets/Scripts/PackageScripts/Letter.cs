@@ -6,31 +6,36 @@ public class Letter : Mail
 {
     [SerializeField]
     private float letterDragDist = 80f;
-    [SerializeField]
-    private float currentDragDist = 0;
-    private bool dragging = false;
 
     [SerializeField]
     private GameObject closedFlap;
     [SerializeField]
     private GameObject openFlap;
 
-    protected void FixedUpdate()
+    protected void Update()
     {
-        // cuts selected object if clicking
         if (dragging)
         {
-            UpdateDrag();
+            Vector3 worldPos = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            RaycastHit2D hit;
+            hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, -1, .6f, 1f);
 
-            // check if letter can be opened
-            if (currentState == MailState.Unsealed)
+            // mail lid hit, start dragging  
+            if (hit.collider != null)
             {
-                Open();
-            }
-            // check if letter can be closed
-            else if (currentState == MailState.Opened)
-            {
-                Close();
+                // update change in mouse y  
+                currentDragDist += Mouse.current.delta.ReadValue().y;
+
+                // check if letter can be opened
+                if (currentState == MailState.Unsealed)
+                {
+                    Open();
+                }
+                // check if letter can be closed
+                else if (currentState == MailState.Opened)
+                {
+                    Close();
+                }
             }
         }
     }
@@ -41,21 +46,18 @@ public class Letter : Mail
     /// </summary>
     protected override void Open()
     {
+        Debug.Log(currentDragDist);
         if (currentDragDist >= letterDragDist)
         {
-            // close letter
             Debug.Log("Opened letter");
 
-            // update state
-            UpdateMailState();
-
-            // update visuals of letter
-
-            currentDragDist = 0;
-
-            // open flap 
+            // visuals
             openFlap.SetActive(true);
             closedFlap.SetActive(false);
+
+            // update state 
+            UpdateMailState();
+            currentDragDist = 0;
 
             // get mail from letter
 
@@ -72,33 +74,19 @@ public class Letter : Mail
             // close letter
             Debug.Log("Closed letter");
 
-            // update state
-            UpdateMailState();
-
-            
-            // close flap
+            // visuals
             openFlap.SetActive(false);
             closedFlap.SetActive(true);
 
+            // update state
+            UpdateMailState();
             currentDragDist = 0;
         }
     }
 
-    private void UpdateDrag()
-    {
-        // if mouse clicked down track y 
-        currentDragDist += Mouse.current.delta.ReadValue().y;
-    }
-
-    public override void Drag()
+    public override void Raycast()
     {
         dragging = true;
-    }  
-
-    public override void StopDrag()
-    {
-        dragging = false;
-        currentDragDist = 0;
     }
 
 

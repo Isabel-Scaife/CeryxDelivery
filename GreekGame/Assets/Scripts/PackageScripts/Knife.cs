@@ -8,39 +8,32 @@ public class Knife : Tool
     [SerializeField]
     private float currentDragDist = 0;
 
-    private bool dragging = false;
     private bool sealCut = false;
+    private bool startCutting = false;
 
     // look into trail render for slice 
 
     protected override void Update()
     {
-        // cuts selected object if clicking
-        if (dragging)
-        {
+        // cut if holding mouse 
+        if (mouseDown)
+        { 
+            // seal is still of letter
             if(!sealCut)
             {
-                UpdateDrag();
-                CutSeal();
+                Cutting();
             }
         }
 
         base.Update();
     }
 
-    /// <summary>
-    /// Beign using knife, starts tracking knife drag 
-    /// </summary>
-    public override void Use() 
-    {
-        dragging = true;
-    }
-
     public override void ResetUse()
     {
         // resest drag info
         currentDragDist = 0;
-        dragging = false;
+        mouseDown = false;
+        startCutting = false;
     }
 
     private void CutSeal()
@@ -64,10 +57,29 @@ public class Knife : Tool
         }
     }
 
-    private void UpdateDrag()
+    /// <summary>
+    /// Once seal zone hit start tracking change in mouse y 
+    /// one reach threshold cut seal 
+    /// </summary>
+    private void Cutting()
     {
-        // if mouse clicked down track y 
-        currentDragDist += Mouse.current.delta.ReadValue().y;
+        hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, -1, 0f, 0.5f);
+
+        // seal zone hit, update y until cut 
+        if (hit.collider != null && !startCutting)
+        {
+            startCutting = true;
+        }
+
+        if (startCutting)
+        {
+            currentDragDist += Mouse.current.delta.ReadValue().y;
+            CutSeal();
+        }
     }
 
+    public override void RayCast()
+    {
+        mouseDown = true;
+    }
 }
