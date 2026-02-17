@@ -3,6 +3,7 @@ using UnityEngine;
 public class SigilDoor : Interactable
 {
     // fields
+    // sigils should be indexed based on x position, e.g. sigils[0] = leftmost sigil
     [SerializeField]
     private Sigil[] sigils;
 

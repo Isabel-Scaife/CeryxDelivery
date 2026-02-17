@@ -16,7 +16,7 @@ public class Player : PlayerControlled
 
                 // reset current interact info
                 interactObject = null;
-                Debug.Log("Interaction Occurred");
+                //Debug.Log("Interaction Occurred");
             }
         }
     }
