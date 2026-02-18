@@ -7,6 +7,7 @@ public class PlayerControlled : MonoBehaviour
     protected Rigidbody2D rb;
 
     // interactions 
+    [SerializeField]
     protected Interactable interactObject;
 
     // movement
@@ -77,6 +78,7 @@ public class PlayerControlled : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("running");
         // get reference to intertactable in rage
         interactObject = collision.gameObject.GetComponent<Interactable>();
     }
