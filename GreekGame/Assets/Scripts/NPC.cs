@@ -12,7 +12,7 @@ public class NPC : Interactable
 
     // for connecting NPCs to dialogue, storing save data and states, etc.
     // might not be needed
-    // [SerializeField] protected string npcID;
+    // [SerializeField] protected string npcID;     // might need in the future
 
     /// <summary>
     /// Shows dialogue

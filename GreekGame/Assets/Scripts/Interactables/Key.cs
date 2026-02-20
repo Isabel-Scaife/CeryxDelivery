@@ -12,13 +12,13 @@ public class Key : Interactable
         {
             Bird bird = (Bird)player;
 
-            if(bird.Pickup(this.gameObject))
+            if (bird.Pickup(this.gameObject))
             {
                 this.transform.SetParent(bird.transform);
             }
         }
-        // destory key
-        if (player is Player)
+        // destory key if it's not currently held
+        else if (player is Player && transform.parent == null)
         {
             Debug.Log("player picks up key");
             Destroy(this.gameObject);

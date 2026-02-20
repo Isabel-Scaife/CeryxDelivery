@@ -47,9 +47,6 @@ public class PlayerControlled : MonoBehaviour
             if (interactObject != null)
             {
                 interactObject.Interact(this);
-
-                // reset current interact info
-                interactObject = null;
                 Debug.Log("Interaction Occurred");
             }
         }
