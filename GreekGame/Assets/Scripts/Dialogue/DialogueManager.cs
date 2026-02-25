@@ -68,16 +68,7 @@ public class DialogueManager : MonoBehaviour
                 {
                     textIsScrolling = false;
                 }
-            }
-
-            // implement something like this eventually to interact with dialogue
-            /*
-            // advances dialogue if any is open
-            if (DialogueManager.Instance.DialogueIsHappening)
-            {
-                DialogueManager.Instance.Advance();
-            }
-            */
+            }           
         }
 
         // advances to next node, or quits if dialogue is over, when player advances
@@ -92,7 +83,7 @@ public class DialogueManager : MonoBehaviour
             else
             {
                 // advance to next piece of dialogue
-                //currentNode = nodes[currentNode.nextNodeID];
+                currentNode = nodes[currentNode.nextNodeID];
             }
         }
     }

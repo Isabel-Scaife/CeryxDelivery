@@ -23,6 +23,9 @@ public class PlayerControlled : MonoBehaviour
     [SerializeField]
     private PlayerInput birdInput;
 
+    // storing what should be given control after cutscenes
+    private bool birdControlledLast;
+
     private void Awake()
     {
         // gets components
@@ -47,7 +50,7 @@ public class PlayerControlled : MonoBehaviour
             if (interactObject != null)
             {
                 interactObject.Interact(this);
-                Debug.Log("Interaction Occurred");
+                //Debug.Log("Interaction Occurred");
             }
         }
     }
@@ -66,6 +69,32 @@ public class PlayerControlled : MonoBehaviour
             birdInput.enabled = false;
             playerInput.enabled = true;
         }
+    }
+
+    /// <summary>
+    /// Turns off player and bird input controls
+    /// </summary>
+    public void PauseInputControls()
+    {
+        if (birdInput.inputIsActive)
+        {
+            birdControlledLast = true;
+            birdInput.enabled = false;
+        }
+        else
+        {
+            birdControlledLast = false;
+            playerInput.enabled = false;
+        }
+    }
+
+    /// <summary>
+    /// gives control back to whoever had it before input was paused
+    /// </summary>
+    public void ResumeInputControls()
+    {
+        if (birdControlledLast) birdInput.enabled = true;
+        else playerInput.enabled = true;
     }
 
     public void Move(InputAction.CallbackContext context)
