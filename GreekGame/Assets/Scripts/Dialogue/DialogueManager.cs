@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using TMPro;
 
 /// <summary>
@@ -20,12 +21,27 @@ public class DialogueManager : MonoBehaviour
     private Queue<char> scrollTextRemaining;
     private bool wantsToAdvance;
 
+    // player intput stuff
+    [SerializeField]
+    private PlayerInput dialogueInput;
+    [SerializeField]
+    private PlayerControlled player;
+
+    // display text stuff
     [SerializeField]
     private TextMeshProUGUI dialogueTMP;
     [SerializeField]
     private GameObject dialogueBox;
     [SerializeField]
     private float textDelay;    // seconds before showing the next char
+
+    // dialogue choices
+    [SerializeField]
+    private List<TextMeshProUGUI> choiceTMPs;
+    [SerializeField]
+    private List<GameObject> choiceBoxes;
+    private bool choicesShowing;
+    private DialogueChoice chosen;
 
     public bool DialogueIsHappening { get; private set; }
 
@@ -38,11 +54,12 @@ public class DialogueManager : MonoBehaviour
         DialogueIsHappening = false;
         scrollTimer = 0.0f;
         scrollTextRemaining = new Queue<char>();
+        chosen = null;
     }
 
     private void Update()
     {
-        // show text one character at a time
+        // shows text one character at a time
         if (textIsScrolling)
         {
             // fills textbox when player chooses to advance
@@ -72,11 +89,14 @@ public class DialogueManager : MonoBehaviour
         }
 
         // advances to next node, or quits if dialogue is over, when player advances
-        else if (DialogueIsHappening && wantsToAdvance)
+        else if (DialogueIsHappening && wantsToAdvance && !choicesShowing)
         {
             if (currentNode.isEndpoint)
             {
+                // close dialogue and switch input controls back to player
                 DialogueIsHappening = false;
+                dialogueInput.enabled = false;
+                player.ResumeInputControls();
                 dialogueBox.SetActive(false);
                 dialogueTMP.text = "";
             }
@@ -84,7 +104,28 @@ public class DialogueManager : MonoBehaviour
             {
                 // advance to next piece of dialogue
                 currentNode = nodes[currentNode.nextNodeID];
+                DisplayDialogue();
             }
+        }
+
+        // displays next piece of dialogue based on option chosen
+        else if (chosen != null)
+        {
+            // TODO: do something with choice's outcome object
+            
+            // sets next dialogue node
+            currentNode = nodes[chosen.nextNodeID];
+            chosen = null;
+
+            // hides choice boxes before displaying next piece
+            choicesShowing = false;
+            int len = choiceBoxes.Count;
+            for (int i = 0; i < len; i++)
+            {
+                choiceTMPs[i].text = "";
+                choiceBoxes[i].SetActive(false);
+            }
+            DisplayDialogue();
         }
     }
 
@@ -109,14 +150,6 @@ public class DialogueManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Advances dialogue upon player input
-    /// </summary>
-    public void Advance()
-    {
-        wantsToAdvance = true;
-    }
-
-    /// <summary>
     /// Displays dialogue text and/or choices to the player
     /// </summary>
     private void DisplayDialogue()
@@ -124,10 +157,10 @@ public class DialogueManager : MonoBehaviour
         // quits if there is nothing to display
         if (currentNode == null) return;
 
-        // shows the current node's text
+        wantsToAdvance = false;
         if (currentNode.choices == null || currentNode.choices.Count < 1)
         {
-            // starts showing text character by character
+            // setup for showing current node's text character by character
             dialogueTMP.text = "";
             scrollTextRemaining.Clear();
             int len = currentNode.text.Length;
@@ -139,11 +172,28 @@ public class DialogueManager : MonoBehaviour
             }
             textIsScrolling = true;
         }
-
-        // shoes the current node's choices
         else
         {
-            // show choices
+            // shows the current node's choices
+            int len = currentNode.choices.Count;
+            for (int i = 0; i < len; i++)
+            {
+                choiceBoxes[i].SetActive(true);
+                choiceTMPs[i].text = currentNode.choices[i].text;
+            }
         }
+    }
+
+    // advances dialogue upon player input
+    public void Advance(InputAction.CallbackContext context)
+    {
+        if (context.started) wantsToAdvance = true;
+    }
+
+    // advances based on option chosen
+    public void Choose(DialogueChoice dc)
+    {
+        // TODO: call this with input controls
+        if (choicesShowing) chosen = dc;
     }
 }
