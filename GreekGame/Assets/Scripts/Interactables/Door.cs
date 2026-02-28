@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Door : Interactable
@@ -13,13 +13,14 @@ public class Door : Interactable
         }
         else
         {
-            // open door 
+            // open door
+            transform.rotation = Quaternion.Euler(0, 0, -90);
 
         }
     }
 
     public void Unlock()
     {
-        canInteract = false;
+        canInteract = true;
     }
 }
