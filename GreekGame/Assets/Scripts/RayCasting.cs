@@ -8,7 +8,11 @@ public class RayCasting : MonoBehaviour
     [SerializeField]
     private List<LayerMask> interactableLayers;
 
-    private bool mouseDown = false;
+    [SerializeField]
+    private float distance;
+
+    [SerializeField]
+    private float minDist;
 
     public void OnFire(InputAction.CallbackContext context)
     {
@@ -18,7 +22,6 @@ public class RayCasting : MonoBehaviour
         // track mouse phases if holding is necessary
         if (context.phase == InputActionPhase.Started)
         {
-            mouseDown = true;
             
             // run package raycasting checks
             if(currentScene == "Package")
@@ -28,7 +31,6 @@ public class RayCasting : MonoBehaviour
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
-            mouseDown = false;
 
             // run package raycasting checks
             if (currentScene == "Package")
@@ -48,12 +50,13 @@ public class RayCasting : MonoBehaviour
         Vector3 worldPos = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         RaycastHit2D hit;
 
-        hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, -1, 1f);
-
         // holding any tool
         if (tool != null)
         {
+
             // drop tool 
+            hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, -1, 1f);
+
             if (hit.collider == null)
             {
                 tool.DropTool();
@@ -69,16 +72,39 @@ public class RayCasting : MonoBehaviour
         else
         {
 
+            // pick up tool 
             hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, interactableLayers[0], 1f);
 
-            // pick up tool 
             if (hit.collider != null)
             {
                 hit.collider.gameObject.GetComponent<Tool>().SelectTool();
                 return;
             }
 
+            // pull letter out 
+            hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, interactableLayers[2], 1f);
+
+            if (hit.collider != null)
+            {
+                if(hit.collider.gameObject.layer == 7)
+                {
+                    hit.collider.gameObject.GetComponent<Letter>().Raycast();
+                    return;
+                }
+                Debug.Log(hit.collider.gameObject.name);
+            }
+
             PackageManager.Instance.MailObj.GetComponent<Mail>().Raycast();
+
+            // evelope hit 
+            //hit = Physics2D.Raycast(worldPos, Vector2.zero, distance, interactableLayers[1], minDist);
+
+            //if (hit.collider != null)
+            //{
+            //    Debug.Log(hit.collider.gameObject.name);
+            //    PackageManager.Instance.MailObj.GetComponent<Mail>().Raycast();
+            //    return;
+            //}
         }
     }
 
@@ -96,6 +122,7 @@ public class RayCasting : MonoBehaviour
         if (tool == null)
         {
             PackageManager.Instance.MailObj.GetComponent<Mail>().Dragging = false;
+            PackageManager.Instance.Letter.Dragging = false;
         }
     }
 

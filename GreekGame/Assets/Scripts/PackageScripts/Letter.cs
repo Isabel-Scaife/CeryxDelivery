@@ -1,99 +1,70 @@
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
-public class Letter : Mail
+public class Letter : MonoBehaviour
 {
+
     [SerializeField]
     private float letterDragDist = 80f;
-
     [SerializeField]
-    private GameObject closedFlap;
+    protected float currentDragDist = 0;
     [SerializeField]
-    private GameObject openFlap;
+    private bool dragging = false;
 
-    protected void Update()
+    public bool Dragging
+    {
+        get => dragging;
+        set
+        {
+            dragging = value;
+            currentDragDist = 0;
+        }
+    }
+
+
+    void Update()
     {
         if (dragging)
         {
             Vector3 worldPos = (Vector2)Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             RaycastHit2D hit;
-            hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, -1, .6f, 1f);
+            hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, -1, 7f, 7f);
 
-            // mail lid hit, start dragging  
+            // letter hit, drag out letter  
             if (hit.collider != null)
             {
+                Debug.Log(hit.collider.gameObject.name);
                 // update change in mouse y  
                 currentDragDist += Mouse.current.delta.ReadValue().y;
 
-                // check if letter can be opened
-                if (currentState == MailState.Unsealed)
+                // drag enough to pull out 
+                if (currentDragDist >= letterDragDist)
                 {
-                    Open();
-                }
-                // check if letter can be closed
-                else if (currentState == MailState.Opened)
-                {
-                    Close();
+                    Vector3 pos = new Vector3(0, 0, 0);
+                    transform.position = pos;
+                    // visuals
+                    //      letter in front with read/or not option
+                    //
+                    //      read unflods letters for user
+                    //      scroll through letter
+                    //      closes when user clicks close option       
+                    //
+                    //      skip noting happens and letter minigame continues
+
+                    // reset drag
+                    currentDragDist = 0;
+
                 }
             }
         }
     }
 
-    /// <summary>
-    /// If drag distance met open letter, 
-    /// recieve letter inside 
-    /// </summary>
-    protected override void Open()
-    {
-        Debug.Log(currentDragDist);
-        if (currentDragDist >= letterDragDist)
-        {
-            Debug.Log("Opened letter");
-
-            // visuals
-            openFlap.SetActive(true);
-            closedFlap.SetActive(false);
-
-            // update state 
-            UpdateMailState();
-            currentDragDist = 0;
-
-            // get mail from letter
-
-        }
-    }
-
-    /// <summary>
-    /// If drag distance met close letter
-    /// </summary>
-    protected override void Close()
-    {
-        if (currentDragDist <=(-1*letterDragDist))
-        {
-            // close letter
-            Debug.Log("Closed letter");
-
-            // visuals
-            openFlap.SetActive(false);
-            closedFlap.SetActive(true);
-
-            // update state
-            UpdateMailState();
-            currentDragDist = 0;
-        }
-    }
-
-    public override void Raycast()
+    public void Raycast()
     {
         dragging = true;
     }
 
+    // open canvas with letter overlay
 
-    // method to add seal, may be moved to seal use  
-    //      check if holding wax sealer
-    //      ckeck if clicked if right spot
-    //      
-
-    // look into trail render for slice 
 }

@@ -17,10 +17,15 @@ public class PackageManager : MonoBehaviour
     [SerializeField]
     private GameObject mailObj;
 
+    [SerializeField]
+    private Letter letter;
+
     public static PackageManager Instance { get; private set; }
     public Tool CurrentTool { get => currentTool; set => currentTool = value; }
 
     public GameObject MailObj { get { return mailObj; } }
+
+    public Letter Letter { get { return letter; } }
 
     private void Awake()
     {

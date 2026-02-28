@@ -63,7 +63,7 @@ public class Knife : Tool
     /// </summary>
     private void Cutting()
     {
-        hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, -1, 0f, 0.5f);
+        hit = Physics2D.Raycast(worldPos, Vector2.zero, 10.0f, -1, 3f, 3f);
 
         // seal zone hit, update y until cut 
         if (hit.collider != null && !startCutting)

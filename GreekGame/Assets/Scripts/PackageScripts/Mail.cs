@@ -20,6 +20,7 @@ public class Mail : MonoBehaviour
     [SerializeField]
     protected float currentDragDist = 0;
 
+    [SerializeField] 
     protected bool dragging;
     public bool Dragging
     {

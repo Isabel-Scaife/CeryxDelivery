@@ -129,7 +129,8 @@ GameObject:
   m_Component:
   - component: {fileID: 22323240}
   - component: {fileID: 22323241}
-  m_Layer: 0
+  - component: {fileID: 22323242}
+  m_Layer: 8
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +146,7 @@ Transform:
   m_GameObject: {fileID: 22323239}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.3506667, y: -0.007142857, z: -0.44000006}
+  m_LocalPosition: {x: 0.3506667, y: -0.007142857, z: -3}
   m_LocalScale: {x: 0.9809524, y: 0.50668, z: 3.8001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -206,6 +207,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &22323242
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22323239}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.28866667}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.5773587}
+      - {x: -0.0018871203, y: 0.8288069}
+      - {x: 0.49858704, y: 1.669032}
+      - {x: -0.49138257, y: 1.6760204}
+      - {x: -0.5, y: -0.28866667}
+      - {x: 0.5, y: -0.28866667}
+  m_UseDelaunayMesh: 0
 --- !u!1 &273950435
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,8 +272,8 @@ GameObject:
   - component: {fileID: 273950436}
   - component: {fileID: 273950438}
   - component: {fileID: 273950439}
-  m_Layer: 7
-  m_Name: Letter
+  m_Layer: 8
+  m_Name: envlope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -289,8 +343,8 @@ Transform:
   m_GameObject: {fileID: 273950435}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.58000004, z: 2}
-  m_LocalScale: {x: 7.5, y: 4.2, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 8}
+  m_LocalScale: {x: 9, y: 5.04, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1470319926}
@@ -308,7 +362,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 273950435}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -345,7 +399,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.2, y: 1.36}
+  m_Size: {x: 1.1, y: 1.2}
   m_EdgeRadius: 0
 --- !u!114 &273950439
 MonoBehaviour:
@@ -362,6 +416,7 @@ MonoBehaviour:
   mailInsidePrefab: {fileID: 0}
   currentState: 0
   currentDragDist: 0
+  dragging: 0
   letterDragDist: 100
   closedFlap: {fileID: 1470319925}
   openFlap: {fileID: 422980041}
@@ -376,7 +431,7 @@ GameObject:
   - component: {fileID: 422980045}
   - component: {fileID: 422980044}
   - component: {fileID: 422980046}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Letter Flap (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +502,7 @@ Transform:
   m_GameObject: {fileID: 422980041}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.68, z: -1}
+  m_LocalPosition: {x: 0, y: 0.68, z: -4}
   m_LocalScale: {x: 1, y: 0.6496109, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -510,7 +565,7 @@ GameObject:
   - component: {fileID: 451753149}
   - component: {fileID: 451753151}
   - component: {fileID: 451753152}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Seal
   m_TagString: Seal
   m_Icon: {fileID: 0}
@@ -526,7 +581,7 @@ Transform:
   m_GameObject: {fileID: 451753148}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 0.19733335, y: 0.35238096, z: 1.48}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -858,6 +913,7 @@ MonoBehaviour:
   currentTool: {fileID: 0}
   toolType: 0
   mailObj: {fileID: 273950435}
+  letter: {fileID: 1325874310}
 --- !u!1 &1237342128
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,7 +924,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1237342129}
   - component: {fileID: 1237342130}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Triangle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -884,7 +940,7 @@ Transform:
   m_GameObject: {fileID: 1237342128}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.3506667, y: -0.007142857, z: -0.44000006}
+  m_LocalPosition: {x: -0.3506667, y: -0.007142857, z: -3}
   m_LocalScale: {x: 0.9809524, y: 0.50668, z: 3.8001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -955,8 +1011,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1325874309}
   - component: {fileID: 1325874308}
-  m_Layer: 0
-  m_Name: LetterInside
+  - component: {fileID: 1325874310}
+  - component: {fileID: 1325874311}
+  m_Layer: 7
+  m_Name: Letter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1026,12 +1084,73 @@ Transform:
   m_GameObject: {fileID: 1325874307}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.46000004, z: 1.86}
-  m_LocalScale: {x: 6.9533, y: 3.6634343, z: 1}
+  m_LocalPosition: {x: 0, y: 0.03, z: 7}
+  m_LocalScale: {x: 8.573821, y: 4.5172267, z: 1.2330579}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1325874310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325874307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19e8e00e0bb3c44689ec907f90e53f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  letterDragDist: 30
+  currentDragDist: 0
+  dragging: 0
+--- !u!61 &1325874311
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325874307}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1470319925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,7 +1162,7 @@ GameObject:
   - component: {fileID: 1470319926}
   - component: {fileID: 1470319928}
   - component: {fileID: 1470319929}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Letter Flap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1059,7 +1178,7 @@ Transform:
   m_GameObject: {fileID: 1470319925}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3, z: -1}
+  m_LocalPosition: {x: 0, y: 0.3, z: -4}
   m_LocalScale: {x: 1, y: -0.6496109, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1321,9 +1440,11 @@ MonoBehaviour:
   - serializedVersion: 2
     m_Bits: 64
   - serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 256
   - serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
+  distance: 0
+  minDist: 0
 --- !u!114 &1523024981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1452,7 +1573,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1885973926}
   - component: {fileID: 1885973927}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Letter Flap (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1468,7 +1589,7 @@ Transform:
   m_GameObject: {fileID: 1885973925}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.3, z: -0.5}
+  m_LocalPosition: {x: 0, y: -0.3, z: -2}
   m_LocalScale: {x: 1, y: 0.6496109, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
